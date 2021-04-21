@@ -1,28 +1,81 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stop the Dino!</title>
-    <link rel="shortcut icon" href="https://stopthedino.com/stopthedino_logo.png">
-    <link rel="canonical" href="https://stopthedino.com/" />
-    <meta property="og:title" content="Stop the dino in your QR Codes" />
-    <meta property="og:url" content="https://stopthedino.com" />
-    <meta property="og:site_name" content="Stop the dino!" />
-    <meta property="og:image" content="https://stopthedino.com/stopthedino.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="Stop the dino in your QR Codes" />
-    <meta name="description" content="Make QR codes containing your own logo" />
-    <style>
-      img {
-        max-width: 90vw;
-        max-height: 90vh;
-      }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.3.4/dist/easy.qrcode.min.js"></script>
-  </head>
-  <body style="background: black">
-    <img style="float:right;width:400px;" src="stopthedino.png">
-    <h1 style="color:yellow;float:left;">Get your logo in your QRCodes!</h1>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stop the Dino!</title>
+  <link rel="shortcut icon" href="https://stopthedino.com/stopthedino_logo.png">
+  <link rel="canonical" href="https://stopthedino.com/" />
+  <meta property="og:title" content="Stop the dino in your QR Codes" />
+  <meta property="og:url" content="https://stopthedino.com" />
+  <meta property="og:site_name" content="Stop the dino!" />
+  <meta property="og:image" content="https://stopthedino.com/stopthedino.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Stop the dino in your QR Codes" />
+  <meta name="description" content="Make QR codes containing your own logo" />
+  <style>
+    img {
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.3.4/dist/easy.qrcode.min.js"></script>
+</head>
+
+<body style="padding:.5em;">
+  <img style="float:right;width:400px;" src="stopthedino.png">
+  <h1 style="color:yellow;float:left;background:rgb(40,40,40);padding:.5em;">Get your logo in your QRCodes!</h1>
+  <div style="clear:left;"></div>
+    URL: <input id="url_path" value="https://stopthedino.com" />
+    <br>
+    Icon: <input id="logo_path" value="https://stopthedino.com/stopthedino_logo.png" />
+    <div id="output"></div>
+    <br>
+    <Br>
+    Using: <a href="https://github.com/ushelp/EasyQRCodeJS"><img src="https://avatars.githubusercontent.com/u/4082017?v=4"
+       style="width:45px">EasyQRCodeJS</a>
+       <br>
+       <br>
+       Free to use, please share and have fun.
+       This version of the library is free and works well.  It has many features and if you want colorful
+       codes, it can do a super job, especially the premium version.  Cheers to <a href="https://github.com/ushelp">Ray (github.com/ushelp)</a>
+       <br>
+       <br>
+
+  <script>
+    function updateCode() {
+      if (window.oldQRCode)
+        window.oldQRCode.clear();
+
+      let text = document.getElementById('url_path').value;
+      let logo = document.getElementById('logo_path').value;
+      let output = document.getElementById('output');
+
+      var options = {
+        text,
+        width: 256,
+        height: 256,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H, // L, M, Q, H
+        logo,
+        quietZone: 0,
+        quietZoneColor: "rgba(0,0,0,0)",
+        logoWidth: 80, // width. default is automatic width
+        logoHeight: 80, // height. default is automatic height
+        logoBackgroundColor: '#fffff', // Logo backgroud color, Invalid when `logBgTransparent` is true; default is '#ffffff'
+        logoBackgroundTransparent: false // Whether use transparent image, default is false
+      };
+
+      window.oldQRCode = new QRCode(output, options);
+
+    }
+    document.getElementById('url_path').addEventListener('input', e => updateCode());
+    document.getElementById('logo_path').addEventListener('input', e => updateCode());
+
+    updateCode();
+  </script>
+</body>
+
 </html>
